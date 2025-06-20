@@ -9,16 +9,19 @@ import com.project.applicationb.util.CryptoHelper
 
 class SecureEncryptionService : Service() {
     private val binder = object : IEncryptionService.Stub() {
-        override fun processEncrypted(requestData: String?): String? {
+        override fun processEncrypted(requestData: ByteArray?): ByteArray? {
             Log.d("Server","Processing request data: $requestData")
             try {
-
-                //val plainRequest = CryptoHelper.decrypt(requestData)
-                //Log.d("Server", "Processed: $plainRequest")
-                // Simulate processing
-                //val response = "Processed: $plainRequest"
-                //Log.d("Server", "Processed: $response")
-                return requestData//CryptoHelper.encrypt(response)
+                return if (requestData != null) {
+                    val plainRequest = CryptoHelper.decrypt(requestData)
+                    Log.d("Server", "Processed: $plainRequest")
+                    // Simulate processing
+                    val response = "Processed: $plainRequest"
+                    Log.d("Server", "Processed: $response")
+                    CryptoHelper.encrypt(response)
+                }else{
+                    requestData
+                }
             } catch (e: Exception) {
                 Log.d("Server", "Error in encryption", e)
                 return null
@@ -27,10 +30,9 @@ class SecureEncryptionService : Service() {
 
         override fun sendOneWay(requestData: ByteArray?) {
             try {
-              //  val message = CryptoHelper.decrypt(requestData)
-                //Log.d("Server", "Received: $message")
+                val message = CryptoHelper.decrypt(requestData)
+                Log.d("Server", "Received: $message")
                 Log.d("Server", "Received: $requestData")
-                // Optional processing, no response
             } catch (e: Exception) {
                 Log.d("Server", "One-way decrypt failed", e)
             }
