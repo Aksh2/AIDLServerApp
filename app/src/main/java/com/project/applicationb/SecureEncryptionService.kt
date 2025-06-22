@@ -4,75 +4,48 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import com.project.applicationb.util.CryptoHelper
 
 
 class SecureEncryptionService : Service() {
-    private val binder = object : IEncryptionService.Stub() {
-        override fun processEncrypted(requestData: ByteArray?): ByteArray? {
-            Log.d("Server","Processing request data: $requestData")
-            try {
-                return if (requestData != null) {
-                    val plainRequest = CryptoHelper.decrypt(requestData)
-                    Log.d("Server", "Processed: $plainRequest")
-                    // Simulate processing
-                    val response = "Processed: $plainRequest"
-                    Log.d("Server", "Processed: $response")
-                    CryptoHelper.encrypt(response)
-                }else{
-                    requestData
-                }
-            } catch (e: Exception) {
-                Log.d("Server", "Error in encryption", e)
-                return null
-            }
-        }
-
-        override fun sendOneWay(requestData: ByteArray?) {
-            try {
-                val message = CryptoHelper.decrypt(requestData)
-                Log.d("Server", "Received: $message")
-                Log.d("Server", "Received: $requestData")
-            } catch (e: Exception) {
-                Log.d("Server", "One-way decrypt failed", e)
-            }
-        }
-
-        override fun sendMessage(requestData: String?) {
-            try {
-                //  val message = CryptoHelper.decrypt(requestData)
-                //Log.d("Server", "Received: $message")
-                Log.d("Server", "send message Received: $requestData")
-                // Optional processing, no response
-            } catch (e: Exception) {
-                Log.d("Server", "send message", e)
-            }
-        }
+    companion object {
+        const val TAG = "Server"
     }
 
+    private val mBinder = object : IEncryptionService.Stub() {
+        override fun sendOneWayMessage(message: String?) {
+            Log.d(TAG, "OneWay Message Received: $message")
+        }
 
+        override fun twoWayMessaging(message: String?): String {
+            Log.d(TAG, "TwoWay Message Received: $message")
+            return "Response from Server from pid: ${android.os.Process.myPid()}"
+        }
+
+    }
 
     override fun onCreate() {
         Log.d(
-            "Server",
-            "Service Created"
+            TAG, "Service Created"
         )
         super.onCreate()
     }
 
     override fun onDestroy() {
         Log.d(
-            "Server",
-            "Service Destroyed"
+            TAG, "Service Destroyed"
         )
         super.onDestroy()
     }
 
-    override fun onBind(intent: Intent): IBinder? {
+    override fun onBind(intent: Intent): IBinder {
         Log.d(
-            "Server",
+            TAG,
             "Binding service in thread id: ${Thread.currentThread().id} and name: ${Thread.currentThread().name} pid: ${android.os.Process.myPid()}"
         )
-        return binder
+        return mBinder
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return super.onStartCommand(intent, flags, startId)
     }
 }

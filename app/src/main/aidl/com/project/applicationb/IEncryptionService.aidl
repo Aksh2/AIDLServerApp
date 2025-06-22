@@ -1,6 +1,6 @@
 package com.project.applicationb;
+
 interface IEncryptionService {
-    byte[] processEncrypted(in byte[] requestData); // Request-Response
-    oneway void sendOneWay(in byte[] requestData);         // One-way
-    oneway void sendMessage(in String requestData);         // One-way
+    void sendOneWayMessage(String message); // One-way Messaging - Client Sends message to server
+    String twoWayMessaging(String message); // Two-way messaging - Client and server communicate
 }

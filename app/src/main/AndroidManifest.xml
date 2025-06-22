@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <permission android:name="com.project.applicationb.SECURE_COMM_PERMISSION"
+
+
+    <permission
+        android:name="com.project.applicationb.SECURE_COMM_PERMISSION"
         android:protectionLevel="signature" />
 
     <application
@@ -17,19 +20,21 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.ApplicationB">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="com.project.applicationb.SecureEncryptionService"
-            android:exported="true"
+
+        <service
+            android:name=".SecureEncryptionService"
             android:enabled="true"
-            android:permission="com.project.applicationb.SECURE_COMM_PERMISSION">
+            android:exported="true"
+            android:permission="com.project.applicationb.SECURE_COMM_PERMISSION"
+            android:process=":remote">
             <intent-filter>
-                <action android:name="com.project.applicationb.SecureEncryptionService" />
+                <action android:name="com.project.applicationb.IEncryptionService" />
             </intent-filter>
         </service>
 
