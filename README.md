@@ -1,6 +1,6 @@
-### Application B - Server App 
+## Application B - Server App 
 
-### Description
+## Description
 Application B is the server app which runs a bound service namely SecureEncryptionService. 
 The app mainly processes messages from the clients and decrypts them and does the processing.
 
@@ -9,9 +9,9 @@ The app mainly processes messages from the clients and decrypts them and does th
 - Does interprocess communication using IEncryptionService AIDL interface.
 - Uses the help of a CryptoHelper to encrpt and decrpt messages from the client using AES Algorithms and Android Keystore.
 
-### IEncryption Service (AIDL Interface)
-- ## processEncrypted - A method which is used for two way communication.
-- ## sendOneWay - A method which is used for one way communication between the client and the server.
+## IEncryption Service (AIDL Interface)
+- ### processEncrypted - A method which is used for two way communication.
+- ### sendOneWay - A method which is used for one way communication between the client and the server.
   
 
 
