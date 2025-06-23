@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-    <permission
-        android:name="com.project.applicationb.SECURE_COMM_PERMISSION"
-        android:protectionLevel="signature" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -31,8 +26,7 @@
             android:name=".SecureEncryptionService"
             android:enabled="true"
             android:exported="true"
-            android:permission="com.project.applicationb.SECURE_COMM_PERMISSION"
-            android:process=":remote">
+            >
             <intent-filter>
                 <action android:name="com.project.applicationb.IEncryptionService" />
             </intent-filter>
