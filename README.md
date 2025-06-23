@@ -10,8 +10,8 @@ The app mainly processes messages from the clients and decrypts them and does th
 - Uses the help of a CryptoHelper to encrpt and decrpt messages from the client using AES Algorithms and Android Keystore.
 
 ## IEncryption Service (AIDL Interface)
-- ### processEncrypted - A method which is used for two way communication.
-- ### sendOneWay - A method which is used for one way communication between the client and the server.
+- ### twoWayMessaging - A method which is used for two way communication.
+- ### sendOneWayMessage - A method which is used for one way communication between the client and the server.
   
 
 
